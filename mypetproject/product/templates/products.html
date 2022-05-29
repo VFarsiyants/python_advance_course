@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container btn-controls mb-4 text-center">
+    <button type="button" class="btn btn-primary">Add product</button>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Received at</th>
+        <th scope="col">Price</th>
+        <th scope="col">Measure unit</th>
+        <th scope="col">Supplier name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in product_list %}
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.received_at }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.measure_unit }}</td>
+          <td>{{ product.supplier_name }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
