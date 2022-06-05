@@ -1,0 +1,39 @@
+version: '3'
+
+services: 
+  db:
+    image: postgres:13.7
+    privileged: true
+    restart: always
+    ports:
+      - '54325:5432'
+    environment:
+      POSTGRES_DB: buyit_store
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: qwerty
+      PGDATA: '/var/lib/postgresql/pgdata'
+    volumes:
+      - .:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./mypetproject
+    privileged: true
+    restart: always
+    expose:
+      - 8000
+    command: bash -c "
+      python manage.py migrate &&
+      gunicorn mypetproject.wsgi -b 0.0.0.0:8000"
+    environment:
+      DJANGO_SETTINGS_MODULE: mypetproject.settings.site1
+    depends_on:
+      - db
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - 8002:8002
+    depends_on:
+      - backend

@@ -12,7 +12,20 @@ DEBUG = False
 SITE_ID = 1
 
 ALLOWED_HOSTS = [
+  '*',
   'localhost',
   '127.0.0.1',
   '111.222.333.444',
   'mywebsite.com']
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'buyit_store',
+        'USER' : 'admin',
+        'PASSWORD' : 'qwerty',
+        'HOST' : 'db',
+        'PORT' : '5432',
+    }
+}

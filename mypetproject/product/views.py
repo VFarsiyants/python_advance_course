@@ -6,7 +6,7 @@ from .models import ProductCategory
 
 class ProductListView(ListView):
     model = Product
-    template_name = 'products.html'
+    template_name = 'product/products.html'
     queryset = Product.on_site.select_related('category').all()
 
     def get_context_data(self, **kwargs):
