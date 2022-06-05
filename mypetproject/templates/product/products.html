@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <nav class="nav nav-pills nav-fill mb-4">
+    <a 
+      class="nav-item nav-link 
+      {% if request.resolver_match.view_name == 'product:product' %}
+        active
+      {% endif %}" 
+      href="{% url 'product:product' %}">
+        All goods
+    </a>
+    {% for category in categories %}
+      <a 
+        class="nav-item nav-link 
+        {% if request.resolver_match.view_name == 'product:category' and cur_category_pk == category.pk%}
+          active
+        {% endif %}" 
+        href="{% url 'product:category' category.pk %}">{{ category.name }}</a>
+    {% endfor %}
+  </nav>
+  <table class="table mb-4">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Received at</th>
+        <th scope="col">Price</th>
+        <th scope="col">Measure unit</th>
+        <th scope="col">Supplier name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in product_list %}
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.category.name }}</td>
+          <td>{{ product.received_at }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.measure_unit }}</td>
+          <td>{{ product.supplier_name }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="container btn-controls text-center">
+    <button type="button" class="btn btn-primary">Add product</button>
+  </div>
+{% endblock %}
